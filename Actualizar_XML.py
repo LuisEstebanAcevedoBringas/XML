@@ -1,9 +1,15 @@
 import xml.etree.ElementTree as ET
+import os
 
 def ModificarXML(path):
     tree = ET.parse(path)
     root = tree.getroot()
-    new_path = 0
+    
+    #Generamos la nueva ruta de guardado
+    file_Path = path
+    file_Path = os.path.splitext(file_Path)[0]
+    file_Name = file_Path.split('/')[-1]
+    new_Path = "./xmlGUI/annotations/" + file_Name + ".xml" #Definimos la ruta de guardado
 
     #Agregamos elementos "folder", "path", "source" & "databases"
     add_Folder = ET.Element("folder")
@@ -17,13 +23,14 @@ def ModificarXML(path):
     add_database.text="PWMD"
     root.insert(3,add_Source)
 
-    #Agregamos el elemento "properly" dentro de "object"
+    #Agregamos el elemento "properly" dentro de cada "object"
     for object in root.iter('object'):
         add_properly = ET.SubElement(object, "properly")
         add_properly.text = "0"
 
-    tree.write(new_path) #Guardar el archivo
+    #Guardamos el archivo modificado en el nuevo directorio
+    file_Content = ET.tostring(root, encoding='unicode')
+    new_File = open(new_Path, "w")
+    new_File.write(file_Content) 
 
-    print(ET.tostring(root, encoding='utf8').decode('utf8'))
-
-ModificarXML("./xmlGUI/annot_old/000880.xml")
+ModificarXML("./xmlGUI/annot_old/000743.xml")
