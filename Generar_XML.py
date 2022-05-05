@@ -1,4 +1,3 @@
-from ast import Sub
 import xml.etree.ElementTree as ET
 from PIL import Image
 import linecache
