@@ -19,8 +19,8 @@ def Generar_XML(path_txt, path_img):
 
         #Obtener tamaño de la imagen
         img = Image.open(path_img)
-        width, height = img.size
-        w, h = str(width), str(height)
+        img_width, img_height = img.size
+        img_w, img_h = str(img_width), str(img_height)
         dim = "3"
 
         #Estructura del xml
@@ -36,47 +36,51 @@ def Generar_XML(path_txt, path_img):
         add_database.text="PWMD"
         add_size = ET.SubElement(Annotation,"size")
         add_width = ET.SubElement(add_size,"width")
-        add_width.text = w
+        add_width.text = img_w
         add_height = ET.SubElement(add_size,"height")
-        add_height.text = h
-        add_dimension = ET.SubElement(add_size,"dimension")
+        add_height.text = img_h
+        add_dimension = ET.SubElement(add_size,"depth")
         add_dimension.text = dim
         
-        #Crear los elementos "object" y agregar a cada objeto las propiedas"<name>surgical</name>", "xmin", "ymin", "xmax", "ymax" y "superly"
+        #Crear los elementos "object"
         with open(path_txt) as myfile:
             lineas_Totales = sum(1 for line in myfile)
             #print("Lineas totales del txt: ",lineas_Totales)
         
         y = 3
         for x in range(lineas_Totales):
-            #add_Object = ET.SubElement(Annotation,"object")
-            #add_Name = ET.SubElement(add_Object, "name")
-            #add_Name.text = "surgical"
-            #add_Properly = ET.SubElement(add_Object,"properly")
-            #add_Properly.text = "0"
-            #add_bndbox = ET.SubElement(add_Object,"bndbox")
-            #add_bndbox.text = "bndbox"
-            #add_xmin = ET.SubElement(add_bndbox,"xmin")
-            #add_xmin.text = xmin
-            #add_ymin = ET.SubElement(add_bndbox,"ymin")
-            #add_ymin.text = ymin
-            #add_xmax = ET.SubElement(add_bndbox,"xmax")
-            #add_xmax.text = xmax
-            #add_ymax = ET.SubElement(add_bndbox,"ymax")
-            #add_ymax.text = ymax
-            print (linecache.getline(path_txt, y).strip())
+
+            #Agregamos las propiedades "name", "properly" y "bndbox"
+            add_Object = ET.SubElement(Annotation,"object")
+            add_Name = ET.SubElement(add_Object, "name")
+            add_Name.text = "surgical"
+            add_Properly = ET.SubElement(add_Object,"properly")
+            add_Properly.text = "0"
+            add_bndbox = ET.SubElement(add_Object,"bndbox")
+
+            #Obtenemos las propierdad  "xmin", "ymin", "xmax", "ymax"
+            linea = linecache.getline(path_txt, y).strip()
+            xmin, ymin, w_txt, h_txt, _ = linea.split()
+            xmax = int(xmin) + int(w_txt)
+            ymax = int(ymin) + int(h_txt)
+            add_xmin = ET.SubElement(add_bndbox,"xmin")
+            add_xmin.text = xmin
+            add_ymin = ET.SubElement(add_bndbox,"ymin")
+            add_ymin.text = ymin
+            add_xmax = ET.SubElement(add_bndbox,"xmax")
+            add_xmax.text = str(xmax)
+            add_ymax = ET.SubElement(add_bndbox,"ymax")
+            add_ymax.text = str(ymax)
             y += 2
             if y >= lineas_Totales:
                 break
 
-        #print (ET.tostring(Annotation))
-
         #Guardamos el archivo modificado en el nuevo directorio
-        #file_Content = ET.tostring(Annotation, encoding='unicode')
-        #new_File = open(new_Path, "w")
-        #new_File.write(file_Content) 
+        file_Content = ET.tostring(Annotation, encoding='unicode')
+        new_File = open(new_Path, "w")
+        new_File.write(file_Content) 
     
     else:
         print("Los archivos no estan relacionados.")
 
-Generar_XML("./xmlGUI/annot_txt/Eg_aKQCXgAA69yQ.txt","./xmlGUI/images/Eg_aKQCXgAA69yQ.png")
+Generar_XML("./xmlGUI/annot_txt/EqkccHpXUAAvYjM.txt","./xmlGUI/images/EqkccHpXUAAvYjM.jpg")
