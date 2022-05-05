@@ -11,7 +11,7 @@ def ModificarXML(path):
     file_Name = file_Path.split('/')[-1]
     new_Path = "./xmlGUI/annotations/" + file_Name + ".xml" #Definimos la ruta de guardado
 
-    #Agregamos elementos "folder", "path", "source" & "databases"
+    #Agregamos los elementos "folder", "path", "source" & "databases"
     add_Folder = ET.Element("folder")
     add_Folder.text = "train"
     root.insert(0,add_Folder)
