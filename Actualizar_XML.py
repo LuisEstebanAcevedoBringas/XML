@@ -16,7 +16,7 @@ def ModificarXML(path):
     add_Folder.text = "train"
     root.insert(0,add_Folder)
     add_Path = ET.Element("path")
-    add_Path.text = "C:temp\Properly-Wearing-Masked-Detect-Dataset\Train"
+    add_Path.text = "C:/temp/Properly-Wearing-Masked-Detect-Dataset/Train"
     root.insert(2,add_Path)
     add_Source = ET.Element("source")
     add_database = ET.SubElement(add_Source, "database")

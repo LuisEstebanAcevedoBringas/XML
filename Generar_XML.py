@@ -30,7 +30,7 @@ def Generar_XML(path_txt, path_img):
         add_Filename =ET.SubElement(Annotation,"filename")
         add_Filename.text = os.path.basename(path_img)
         add_Path = ET.SubElement(Annotation,"path")
-        add_Path.text = "C:temp\Properly-Wearing-Masked-Detect-Dataset\Train"
+        add_Path.text = "C:/temp/Properly-Wearing-Masked-Detect-Dataset/Train"
         add_Source = ET.SubElement(Annotation,"source")
         add_database = ET.SubElement(add_Source, "database")
         add_database.text="PWMD"
