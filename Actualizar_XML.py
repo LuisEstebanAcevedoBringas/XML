@@ -33,4 +33,6 @@ def ModificarXML(path):
     new_File = open(new_Path, "w")
     new_File.write(file_Content) 
 
-ModificarXML("./xmlGUI/annot_old/000743.xml")
+
+if __name__ == "__main__":
+    ModificarXML("./xmlGUI/annot_old/000743.xml")

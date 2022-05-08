@@ -83,4 +83,5 @@ def Generar_XML(path_txt, path_img):
     else:
         print("Los archivos no estan relacionados.")
 
-Generar_XML("./xmlGUI/annot_txt/EqkccHpXUAAvYjM.txt","./xmlGUI/images/EqkccHpXUAAvYjM.jpg")
+if __name__ == "__main__":
+    Generar_XML("./xmlGUI/annot_txt/EqkccHpXUAAvYjM.txt","./xmlGUI/images/EqkccHpXUAAvYjM.jpg")
