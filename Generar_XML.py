@@ -47,33 +47,37 @@ def Generar_XML(path_txt, path_img):
             lineas_Totales = sum(1 for line in myfile)
             #print("Lineas totales del txt: ",lineas_Totales)
         
-        y = 3
-        for x in range(lineas_Totales):
+        try:
+            y = 3
+            for x in range(lineas_Totales):
+                #Agregamos las propiedades "name", "properly" y "bndbox"
+                add_Object = ET.SubElement(Annotation,"object")
+                add_Name = ET.SubElement(add_Object, "name")
+                add_Name.text = "surgical"
+                add_Properly = ET.SubElement(add_Object,"properly")
+                add_Properly.text = "0"
+                add_bndbox = ET.SubElement(add_Object,"bndbox")
 
-            #Agregamos las propiedades "name", "properly" y "bndbox"
-            add_Object = ET.SubElement(Annotation,"object")
-            add_Name = ET.SubElement(add_Object, "name")
-            add_Name.text = "surgical"
-            add_Properly = ET.SubElement(add_Object,"properly")
-            add_Properly.text = "0"
-            add_bndbox = ET.SubElement(add_Object,"bndbox")
+                #Obtenemos las propierdad  "xmin", "ymin", "xmax", "ymax"
+                linea = linecache.getline(path_txt, y).strip()
+                xmin, ymin, w_txt, h_txt, _ = linea.split()
+                xmax = int(xmin) + int(w_txt)
+                ymax = int(ymin) + int(h_txt)
+                add_xmin = ET.SubElement(add_bndbox,"xmin")
+                add_xmin.text = xmin
+                add_ymin = ET.SubElement(add_bndbox,"ymin")
+                add_ymin.text = ymin
+                add_xmax = ET.SubElement(add_bndbox,"xmax")
+                add_xmax.text = str(xmax)
+                add_ymax = ET.SubElement(add_bndbox,"ymax")
+                add_ymax.text = str(ymax)
+                y += 2
+                if y >= lineas_Totales:
+                    break
+                #linea = linecache.getline(path_txt, y).strip()
+        except:
+            print("No se detectaron objectos en la imagen.")
 
-            #Obtenemos las propierdad  "xmin", "ymin", "xmax", "ymax"
-            linea = linecache.getline(path_txt, y).strip()
-            xmin, ymin, w_txt, h_txt, _ = linea.split()
-            xmax = int(xmin) + int(w_txt)
-            ymax = int(ymin) + int(h_txt)
-            add_xmin = ET.SubElement(add_bndbox,"xmin")
-            add_xmin.text = xmin
-            add_ymin = ET.SubElement(add_bndbox,"ymin")
-            add_ymin.text = ymin
-            add_xmax = ET.SubElement(add_bndbox,"xmax")
-            add_xmax.text = str(xmax)
-            add_ymax = ET.SubElement(add_bndbox,"ymax")
-            add_ymax.text = str(ymax)
-            y += 2
-            if y >= lineas_Totales:
-                break
 
         #Guardamos el archivo modificado en el nuevo directorio
         file_Content = ET.tostring(Annotation, encoding='unicode')
