@@ -13,7 +13,6 @@ def Generar_XML(path_txt, path_img):
     img_Name = img_Path.split('/')[-1]
 
     if os.path.basename(img_Name) == os.path.basename(file_Name):
-
         #Definimos la ruta de guardado
         new_Path = "./xmlGUI/annotations/" + file_Name + ".xml"
 
@@ -41,12 +40,12 @@ def Generar_XML(path_txt, path_img):
         add_height.text = img_h
         add_dimension = ET.SubElement(add_size,"depth")
         add_dimension.text = dim
-        
+
         #Crear los elementos "object"
         with open(path_txt) as myfile:
             lineas_Totales = sum(1 for line in myfile)
             #print("Lineas totales del txt: ",lineas_Totales)
-        
+
         try:
             y = 3
             for x in range(lineas_Totales):
@@ -78,12 +77,11 @@ def Generar_XML(path_txt, path_img):
         except:
             print("No se detectaron objectos en la imagen.")
 
-
         #Guardamos el archivo modificado en el nuevo directorio
         file_Content = ET.tostring(Annotation, encoding='unicode')
         new_File = open(new_Path, "w")
         new_File.write(file_Content) 
-    
+
     else:
         print("Los archivos no estan relacionados.")
 
