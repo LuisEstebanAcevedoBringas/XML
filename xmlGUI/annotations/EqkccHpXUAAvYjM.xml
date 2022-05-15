@@ -1,7 +1,7 @@
 <annotation>
     <folder>train</folder>
     <filename>EqkccHpXUAAvYjM.jpg</filename>
-    <path>C:temp\Properly-Wearing-Masked-Detect-Dataset\Train</path>
+    <path>C:/temp/Properly-Wearing-Masked-Detect-Dataset/Train</path>
     <source>
         <database>PWMD</database>
     </source>
