@@ -4,7 +4,6 @@ import linecache
 import os
 
 def Generar_XML(path_txt, path_img):
-
     file_Path = path_txt
     file_Path = os.path.splitext(file_Path)[0]
     file_Name = file_Path.split('/')[-1]
@@ -12,17 +11,19 @@ def Generar_XML(path_txt, path_img):
     img_Path = os.path.splitext(img_Path)[0]
     img_Name = img_Path.split('/')[-1]
 
+    #Comparamos el archivo txt tiene el mismo nombre que la imagen
     if os.path.basename(img_Name) == os.path.basename(file_Name):
         #Definimos la ruta de guardado
         new_Path = "./xmlGUI/annotations/" + file_Name + ".xml"
 
-        #Obtener tamaño de la imagen
+        #Obtener tamaño y los calnales de la imagen
         img = Image.open(path_img)
         img_width, img_height = img.size
         img_w, img_h = str(img_width), str(img_height)
+        area_img = img_width * img_height
         dim = "3"
 
-        #Estructura del xml
+        #Estructura principal del xml
         Annotation = ET.Element("annotation")
         add_Folder = ET.SubElement(Annotation,"folder")
         add_Folder.text = "train"
@@ -43,10 +44,10 @@ def Generar_XML(path_txt, path_img):
 
         #Crear los elementos "object"
         with open(path_txt) as myfile:
-            lineas_Totales = sum(1 for line in myfile)
-            #print("Lineas totales del txt: ",lineas_Totales)
-
-        try:
+            lineas_Totales = sum(1 for line in myfile) #Obtenemos el total de linea que hay en el archivo txt
+        
+        #Comprobamos que se hayan detectado objectos
+        if lineas_Totales >= 3:
             y = 3
             for x in range(lineas_Totales):
                 #Agregamos las propiedades "name", "properly" y "bndbox"
@@ -70,11 +71,19 @@ def Generar_XML(path_txt, path_img):
                 add_xmax.text = str(xmax)
                 add_ymax = ET.SubElement(add_bndbox,"ymax")
                 add_ymax.text = str(ymax)
+
+                #Calculamos el tamaño del objecto
+                width_obj = xmax - int(xmin)
+                height_obj = ymax - int(ymin)
+                area_obj = width_obj * height_obj
+                obj_size = area_obj / area_img
+                add_size = ET.SubElement(add_bndbox,"obj_size")
+                add_size.text = str(obj_size)
+
                 y += 2
                 if y >= lineas_Totales:
                     break
-                #linea = linecache.getline(path_txt, y).strip()
-        except:
+        else:
             print("No se detectaron objectos en la imagen.")
 
         #Guardamos el archivo modificado en el nuevo directorio
@@ -86,4 +95,4 @@ def Generar_XML(path_txt, path_img):
         print("Los archivos no estan relacionados.")
 
 if __name__ == "__main__":
-    Generar_XML("./xmlGUI/annot_txt/EqkccHpXUAAvYjM.txt","./xmlGUI/images/EqkccHpXUAAvYjM.jpg")
+    Generar_XML("./xmlGUI/annot_txt/EjKnaNbWsAINkrC.txt","./xmlGUI/images/EjKnaNbWsAINkrC.jpg")
