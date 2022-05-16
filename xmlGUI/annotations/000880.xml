@@ -1,5 +1,5 @@
 <annotation><folder>train</folder><filename>000880.jpg</filename>
-	<path>C:temp\Properly-Wearing-Masked-Detect-Dataset\Train</path><source><database>PWMD</database></source><size>
+	<path>C:/temp/Properly-Wearing-Masked-Detect-Dataset/Train</path><source><database>PWMD</database></source><size>
 		<width>960</width>
 		<height>540</height>
 		<depth>3</depth>
@@ -12,7 +12,7 @@
 			<xmax>471</xmax>
 			<ymax>262</ymax>
 		</bndbox>
-	<properly>0</properly></object>
+	<properly>0</properly><obj_size>0.024837962962962964</obj_size></object>
 	<object>
 		<name>with_mask</name>
 		<bndbox>
@@ -21,7 +21,7 @@
 			<xmax>109</xmax>
 			<ymax>145</ymax>
 		</bndbox>
-	<properly>0</properly></object>
+	<properly>0</properly><obj_size>0.01081983024691358</obj_size></object>
 	<object>
 		<name>with_mask</name>
 		<bndbox>
@@ -30,7 +30,7 @@
 			<xmax>715</xmax>
 			<ymax>86</ymax>
 		</bndbox>
-	<properly>0</properly></object>
+	<properly>0</properly><obj_size>0.009166666666666667</obj_size></object>
 	<object>
 		<name>without_mask</name>
 		<bndbox>
@@ -39,7 +39,7 @@
 			<xmax>291</xmax>
 			<ymax>124</ymax>
 		</bndbox>
-	<properly>0</properly></object>
+	<properly>0</properly><obj_size>0.00945216049382716</obj_size></object>
 	<object>
 		<name>with_mask</name>
 		<bndbox>
@@ -48,5 +48,5 @@
 			<xmax>488</xmax>
 			<ymax>154</ymax>
 		</bndbox>
-	<properly>0</properly></object>
+	<properly>0</properly><obj_size>0.027038966049382718</obj_size></object>
 </annotation>
