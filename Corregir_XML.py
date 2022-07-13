@@ -2,6 +2,9 @@ import xml.etree.ElementTree as ET
 from glob import glob
 import os
 
+label_change = {1:0, 3:1, 4:2, 5:3, 6:4}
+name_change = {0:'cloth', 1:'none', 2:'respirator', 3:'surgical', 4:'valve'}
+
 def CorregirXLM(path):
     tree = ET.parse(path)
     root = tree.getroot()
@@ -11,7 +14,7 @@ def CorregirXLM(path):
     new_folder.text = "valid"
 
     #atributos_source = root.find("path").text
-    #print(atributos_source)
+    #print(ET.tostring(atributos_source, encoding='utf8').decode('utf8'))
 
     Contador_objetos = 0
 
@@ -19,28 +22,11 @@ def CorregirXLM(path):
         object.remove(object.find("score")) #Eliminamos el tag "score" de cada objeto
         new_label = object.find("label")
         new_name = object.find("name")
-        print(new_label.text)
+
         #Cambiamos el tag label y name de cada objeto.
-        if int(new_label.text) == 1:
-            print("Es 0")
-            new_label.text = ("0")
-            new_name.text = ("cloth")
-        elif int(new_label.text) == 3:
-            print("Es 1")
-            new_label.text = "1"
-            new_name.text = ("none")
-        elif int(new_label.text) == 4:
-            print("Es 2")
-            new_label.text = "2"
-            new_name.text = ("respirator")
-        elif int(new_label.text) == 5:
-            print("Es 3")
-            new_label.text = "3"
-            new_name.text = ("surgical")
-        elif int(new_label.text) == 6:
-            print("Es 4")
-            new_label.text = "4"
-            new_name.text = ("valve")
+        last_label = int(new_label.text)
+        new_label.text = label_change[last_label]
+        new_name.text = name_change[new_label.text]
 
         bbox = object.find('bndbox')
         #bbox.remove(bbox.find("object_prob"))
