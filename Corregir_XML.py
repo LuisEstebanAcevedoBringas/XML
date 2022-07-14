@@ -15,13 +15,13 @@ def CorregirXLM(path):
     atributos_source = str(root.find("path").text).split("/")
     #Obtenemos el path como string y lo separamos segun "/"
     source = root.find("source")
-    new_database = source.find("database")
+    new_database = source.find("database") #Modificamos el tag "database"
     new_database.text = atributos_source[2]
-    add_keyword = ET.SubElement(source, "keyword") #Agregamos "keyword"
+    add_keyword = ET.SubElement(source, "keyword") # Creamos y agregamos "keyword"
     add_keyword.text = atributos_source[3]
-    add_date = ET.SubElement(source, "date") #Agregamos "date"
+    add_date = ET.SubElement(source, "date") #Creamos y agregamos "date"
     add_date.text = atributos_source[4]
-    add_range = ET.SubElement(source, "range") #Agregamos "range"
+    add_range = ET.SubElement(source, "range") #Creamos y agregamos "range"
     add_range.text = atributos_source[5]
 
     Contador_objetos = 0
