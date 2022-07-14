@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 from glob import glob
 
-
 def xml_annotation(xml_path):
     tree = ET.parse(xml_path)
     root = tree.getroot()
@@ -20,11 +19,9 @@ def xml_annotation(xml_path):
 
     return acum / size
 
-
-lista = glob('/*.xml')
-
-acum = 0
-for p in lista:
-    acum += xml_annotation(p)
-
-print('Tamaño promedio de las bounding box: {}'.format(acum/len(lista)))
+if __name__ == "__main__":
+    lista = glob('/*.xml')
+    acum = 0
+    for p in lista:
+        acum += xml_annotation(p)
+    print('Tamaño promedio de las bounding box: {}'.format(acum/len(lista)))
