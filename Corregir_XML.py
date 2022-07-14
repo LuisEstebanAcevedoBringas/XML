@@ -38,7 +38,7 @@ def CorregirXLM(path):
         new_name.text = str(name_change[int(new_label.text)])
 
         bbox = object.find('bndbox')
-        # bbox.remove(bbox.find("object_prob"))
+        bbox.remove(bbox.find("obj_prob"))
         xmin = int(bbox.find('xmin').text) - 1
         ymin = int(bbox.find('ymin').text) - 1
         xmax = int(bbox.find('xmax').text) - 1
@@ -73,7 +73,6 @@ def CorregirXLM(path):
 
 if __name__ == "__main__":
 
-    #Paths = glob("./valid/Annotations/*.xml")
-    # for p in Paths:
-    #    CorregirXLM(p)
-    CorregirXLM("./E_0AcW4VgAYXanL.xml")
+    Paths = glob("./valid/Annotations/*.xml") #Path de todos los xml
+    for p in Paths:
+        CorregirXLM(p)
