@@ -1,11 +1,8 @@
 import xml.etree.ElementTree as ET
 from glob import glob
-import os
 
 label_change = {1: 0, 3: 1, 4: 2, 5: 3, 6: 4}
-name_change = {0: 'cloth', 1: 'none',
-               2: 'respirator', 3: 'surgical', 4: 'valve'}
-
+name_change = {0: 'cloth', 1: 'none', 2: 'respirator', 3: 'surgical', 4: 'valve'}
 
 def CorregirXLM(path):
     tree = ET.parse(path)
@@ -15,8 +12,17 @@ def CorregirXLM(path):
     new_folder = root.find("folder")
     new_folder.text = "valid"
 
-    #atributos_source = root.find("path").text
-    #print(ET.tostring(atributos_source, encoding='utf8').decode('utf8'))
+    atributos_source = str(root.find("path").text).split("/")
+    #Obtenemos el path como string y lo separamos segun "/"
+    source = root.find("source")
+    new_database = source.find("database")
+    new_database.text = atributos_source[2]
+    add_keyword = ET.SubElement(source, "keyword") #Agregamos "keyword"
+    add_keyword.text = atributos_source[3]
+    add_date = ET.SubElement(source, "date") #Agregamos "date"
+    add_date.text = atributos_source[4]
+    add_range = ET.SubElement(source, "range") #Agregamos "range"
+    add_range.text = atributos_source[5]
 
     Contador_objetos = 0
 
@@ -65,11 +71,9 @@ def CorregirXLM(path):
     new_File = open(path, "w")
     new_File.write(file_Content)
 
-
 if __name__ == "__main__":
 
     #Paths = glob("./valid/Annotations/*.xml")
     # for p in Paths:
     #    CorregirXLM(p)
-    CorregirXLM(
-        "/Users/agustincastillo/Downloads/valid/Annotations/E_0AcW4VgAYXanL.xml")
+    CorregirXLM("./E_0AcW4VgAYXanL.xml")
