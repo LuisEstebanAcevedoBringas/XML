@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 from glob import glob
+from pathlib import Path
 import os
 
 label_change = {1: 0, 3: 1, 4: 2, 5: 3, 6: 4}
@@ -15,6 +16,25 @@ def CorregirXLM(path):
     new_folder = root.find("folder")
     new_folder.text = "valid"
 
+    path = str(root.find('path').text).split('/')
+    path.reverse()
+    print(type(path[1]))
+
+    aux = path[3]
+    root.find('source').find('database').text = aux
+
+    keyword = ET.SubElement(root.find('source'), "keyword")
+    date = ET.SubElement(root.find('source'), "date")
+    range = ET.SubElement(root.find('source'), "range")
+
+    aux = path[2]
+    keyword.text = aux
+
+    aux = path[1]
+    date.text = aux
+
+    aux = path[0]
+    range.text = aux
     #atributos_source = root.find("path").text
     #print(ET.tostring(atributos_source, encoding='utf8').decode('utf8'))
 
@@ -72,4 +92,4 @@ if __name__ == "__main__":
     # for p in Paths:
     #    CorregirXLM(p)
     CorregirXLM(
-        "/Users/agustincastillo/Downloads/valid/Annotations/E_0AcW4VgAYXanL.xml")
+        "/Users/agustincastillo/Downloads/valid/Annotations/E_0HeJgVgAggPyw.xml")
