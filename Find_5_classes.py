@@ -13,8 +13,8 @@ def find_images(path):
         label = object.find("label").text
         lista_labels.append(label)
 
-        if "1" in lista_labels and "2" in lista_labels and "3" in lista_labels and "4" in lista_labels and "0" in lista_labels:
-            lista_imagenes.append(name_img)
+    if "1" in lista_labels and "2" in lista_labels and "3" in lista_labels and "4" in lista_labels and "0" in lista_labels:
+        lista_imagenes.append(name_img)
 
 if __name__ == "__main__":
     
