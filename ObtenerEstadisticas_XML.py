@@ -3,17 +3,11 @@ from glob import glob
 import numpy as np
 
 name_size = {0: 'Pequeño', 1: 'Mediano', 2: 'Grande'}
-
 name_change = {0: 'cloth', 1: 'none', 2: 'respirator', 3: 'surgical', 4: 'valve'}
-
 contador_labels = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
-
 contador_size = {0: 0, 1: 0, 2: 0}
-
 contador_objetos_size = {0: [], 1: [], 2: []}
-
 contador_faces = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
-
 lista_px = []
 
 def getStatics(path):
